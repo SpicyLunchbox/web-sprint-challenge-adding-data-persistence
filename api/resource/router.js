@@ -1,10 +1,12 @@
 // build your `/api/resources` router here
 
-const express = require('express');
-const Resources = require('./model.js')
+const express = require('express'); //imports express
+const Resources = require('./model.js') //imports helper functions
 
-const router = express.Router();
+const router = express.Router(); //creates router using express
 
+
+//queries for all rows in resources table, and sends that data to the client via json
 router.get('/', (req, res, next) => {
     Resources.getResources()
         .then(resources => {
@@ -13,6 +15,8 @@ router.get('/', (req, res, next) => {
         .catch(next)
 })
 
+
+//creates new resource using helper function and sends that newly created resource to client as an object
 router.post('/', (req, res, next) => {
     Resources.createResource(req.body)
         .then(resource => {
@@ -21,6 +25,9 @@ router.post('/', (req, res, next) => {
         .catch(next)
 })
 
+
+
+// .catch in all prior router functions will trigger this function
 router.use((err, req, res, next) => { // eslint-disable-line
     res.status(err.status || 500).json({
       message: err.message,

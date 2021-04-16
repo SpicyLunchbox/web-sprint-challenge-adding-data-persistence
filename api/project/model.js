@@ -1,18 +1,22 @@
 // build your `Project` model here
 
-const db = require('../../data/dbConfig.js');
+const db = require('../../data/dbConfig.js'); // imports database
 
-function getProjects() {
+
+// fetches all data found in projects table
+function getProjects() { 
     return db('projects')
 }
 
 
-
+// adds passed in data to projects table and returns that row by querying for the newly generated project_id
 async function createProject(project) {
     const [project_id] = await db('projects').insert(project);
     return getProjects().where({project_id}).first();
 }
 
+
+//exports helper functions
 module.exports = {
     getProjects,
     createProject

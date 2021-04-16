@@ -1,7 +1,8 @@
 // build your `Task` model here
 
-const db = require('../../data/dbConfig.js');
+const db = require('../../data/dbConfig.js'); // imports database
 
+// fetches all data found in tasks table and joins connect projects table data, returning selected columns from both tables
 async function getTasks() {
     const data = await db('tasks')
             .join(
@@ -19,15 +20,17 @@ async function getTasks() {
                 )
 
 
-    return data
+    return data // variable created to allow for object shape manipulation later if needed
 }
 
-
+// adds passed in data to tasks table and returns that row by querying for the newly generated task_id
 async function createTask(task) {
     const [task_id] = await db('tasks').insert(task);
     return getTasks().where({task_id}).first()
 }
 
+
+//exports helper functions
 module.exports = {
     getTasks,
     createTask

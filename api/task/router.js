@@ -1,10 +1,13 @@
 // build your `/api/tasks` router here
 
-const express = require('express');
-const Tasks = require('./model.js');
+const express = require('express'); //imports express
+const Tasks = require('./model.js'); //imports helper functions
 
-const router = express.Router();
+const router = express.Router(); //creates router using express
 
+
+
+//queries for all tasks in tasks table, and sends that data to the client via json. also joins relevent projects table columns, per the helper function
 router.get('/', (req, res, next) => {
     Tasks.getTasks()
         .then(tasks => {
@@ -13,6 +16,9 @@ router.get('/', (req, res, next) => {
         .catch(next)
 })
 
+
+
+//creates new task using helper function and sends that newly created task to client as an object
 router.post('/', (req, res, next) => {
     Tasks.createTask(req.body)
         .then(task => {
@@ -24,7 +30,7 @@ router.post('/', (req, res, next) => {
 
 
 
-
+// .catch in all prior router functions will trigger this function
 router.use((err, req, res, next) => { // eslint-disable-line
     res.status(err.status || 500).json({
       message: err.message,
