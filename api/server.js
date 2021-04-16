@@ -16,3 +16,5 @@ server.use(helmet()); // allows helmet use for header security
 server.use('/api/tasks', tasksRouter);
 server.use('/api/resources', resourcesRouter);
 server.use('/api/projects', projectsRouter);
+
+module.exports = server; // exports server for use in index.js
